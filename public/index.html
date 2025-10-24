@@ -1,89 +1,121 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kim’s Blue Crab Quest – Meet Kim</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.4.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.4.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="main.js"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+  <!-- Firebase -->
+  <script defer src="/__/firebase/10.0.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.0.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.0.0/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/init.js"></script>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <section id="home" class="hero hero-vibrant short-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content hero-top-right">
+      <h1><span class="accent">Kim’s Blue Crab Quest</span></h1>
+      <div class="hero-subtext">
+        <p>Honoring Maryland’s blue crab legacy,</p>
+        <p>one review at a time.</p>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+  </section>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <!-- ===== CRAB RUN STRIP ===== -->
+  <section class="crab-run-strip">
+    <div class="logo-layer">
+      <img src="assets/logo-footer.png" alt="Left Logo" class="run-logo left-logo" />
+      <img src="assets/logo-footer.png" alt="Right Logo" class="run-logo right-logo" />
+    </div>
+    <img src="assets/crab-run.png" alt="Running Crab" class="hero-crab behind-logos" />
+  </section>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+  <!-- ===== COASTS ===== -->
+  <section id="coasts" class="coasts">
+    <div class="coasts-overlay"></div>
+    <div class="container coasts-content">
+      <h2 class="coasts-title">Maryland vs Florida – A Tale of Two Coasts</h2>
+      <div class="coast-grid">
+        <div class="coast-column md">
+          <h3>Chesapeake Bay, Maryland</h3>
+          <ul>
+            <li>Native blue crab habitat</li>
+            <li>Traditional Old Bay seasoning</li>
+            <li>Generations of crab houses</li>
+            <li>300+ year crabbing tradition</li>
+            <li>Natty Boh & crab cakes</li>
+          </ul>
+        </div>
+        <div class="coast-column fl">
+          <h3>Cape Coral, Florida</h3>
+          <ul>
+            <li>Imported Maryland crabs</li>
+            <li>Fusion with local flavors</li>
+            <li>Waterfront dining experiences</li>
+            <li>Gulf Coast influences</li>
+            <li>Tropical dining atmosphere</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEET KIM ===== -->
+  <section id="meet-kim" class="meet-kim full-bg large-section">
+    <div class="container meet-wrapper">
+      <div class="kim-text">
+        <h2 class="section-title">Meet Kim</h2>
+        <p>
+          Born and raised on the shores of the Chesapeake Bay, Kim grew up with the taste of authentic Maryland blue crab. Now living in Cape Coral, Florida, she’s on a mission to find restaurants that can truly capture the essence of her beloved Maryland blue crabs.
+        </p>
+        <p><strong>Her Quest:</strong> Rating Cape Coral area restaurants on their Maryland blue crab authenticity.</p>
+        <p>Joining her on the noble quest is her trusty spouse, Jimmy.</p>
+      </div>
+      <img src="assets/meet-kim.png" alt="Kim and Jimmy" class="kim-image medium" />
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS & SUGGESTIONS ===== -->
+  <section id="reviews" class="reviews-section reddish-bg">
+   <h2 class="section-title reviews-title">Kim’s Reviews</h2>
+
+    <div id="admin-link" class="admin-link" style="display:none;">
+      <a href="admin.html">Go to Admin Dashboard</a>
+    </div>
+
+    <div class="crabpile-container">
+      <img src="assets/crabpile.png" alt="Crab Pile" class="crabpile-img full-crabpile" />
+      <div id="reviews-container" class="reviews-container"></div>
+    </div>
+
+    <div class="suggestions-container">
+      <h3>Suggestions</h3>
+      <p>Know a great crab house or waterfront spot? Share it with Kim’s community below!</p>
+      <form id="suggestion-form">
+        <textarea id="suggestion-text" placeholder="Share your suggestion..." required></textarea>
+        <button type="submit" class="btn-primary">Submit</button>
+      </form>
+      <div id="suggestion-status"></div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <img src="assets/logo-footer.png" alt="KBCQ Logo" class="footer-logo" />
+      <p>© 2025 Kim’s Blue Crab Quest. All Rights Reserved.</p>
+      <p class="small-text">Celebrating the spirit of the Chesapeake Bay, one crab at a time.</p>
+      <p id="footer-admin-link" class="footer-admin" style="display:none;">
+        <a href="admin.html">🦀 Admin Dashboard</a>
+      </p>
+    </div>
+  </footer>
+</body>
 </html>

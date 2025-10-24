@@ -1,0 +1,307 @@
+/* =========================================================
+   Kim’s Blue Crab Quest v4.0
+   Refreshed with vibrant coasts + blue review title
+   ========================================================= */
+
+:root {
+  --bay-blue: #2c6e91;
+  --seafoam: #8dd0c3;
+  --sand: #f7e4b0;
+  --coral: #ff7954;
+  --deep-blue: #1d3a47;
+  --white: #fff;
+  --shadow: rgba(0, 0, 0, 0.15);
+  --transition: all 0.4s ease;
+}
+
+/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--deep-blue);
+  background: var(--white);
+  line-height: 1.6;
+}
+h1,h2,h3 { font-weight: 700; color: var(--deep-blue); }
+.container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+/* Hero */
+.hero-vibrant.short-hero {
+  position: relative;
+  height: 65vh;
+  width: 100%;
+  background: url('assets/hero-image.png') center/contain no-repeat var(--deep-blue);
+  filter: contrast(1.2) saturate(1.4) brightness(1.3);
+  overflow: hidden;
+  color: var(--white);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(0,0,0,.45), rgba(44,110,145,.25));
+  z-index: 1;
+}
+.hero-content {
+  position: absolute; top: 10%; right: 8%; z-index: 2;
+  text-align: right;
+  background: rgba(0,0,0,.55);
+  padding: 1.5rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.4);
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--coral);
+  text-shadow: 2px 2px 10px rgba(0,0,0,.7);
+}
+.hero-subtext p {
+  text-align: center;
+  color: var(--sand);
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Crab Run */
+.crab-run-strip {
+  background: var(--sand);
+  position: relative;
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.logo-layer {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  z-index: 3;
+}
+.run-logo {
+  height: 100px; width: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.3));
+}
+.hero-crab.behind-logos {
+  width: 120px;
+  position: absolute;
+  left: -120px;
+  bottom: 15px;
+  z-index: 2;
+  animation: crabRun 10s linear infinite;
+}
+@keyframes crabRun {
+  0% { left: -120px; transform: scaleX(1); }
+  49% { transform: scaleX(1); }
+  50% { left: calc(100% - 120px); transform: scaleX(-1); }
+  99% { transform: scaleX(-1); }
+  100% { left: -120px; transform: scaleX(1); }
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--coral);
+  text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 2px 10px rgba(0,0,0,0.4);
+  letter-spacing: .5px;
+  position: relative;
+  display: inline-block;
+  animation: floatTitle 2s ease forwards;
+  margin-bottom: 1.2rem;
+}
+@keyframes floatTitle { 0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)} }
+
+/* Blue twinkling “Kim’s Reviews” title */
+.section-title.reviews-title {
+  color: #0066cc;
+  text-shadow: 0 0 10px #aee4ff, 0 2px 12px rgba(0,0,0,0.6);
+  animation: twinkleBlue 2.5s ease-in-out infinite alternate;
+}
+@keyframes twinkleBlue {
+  0% { text-shadow: 0 0 10px #aee4ff, 0 0 20px rgba(0,0,0,0.5); }
+  50% { text-shadow: 0 0 20px #52b7ff, 0 0 25px rgba(0,0,0,0.4); }
+  100% { text-shadow: 0 0 10px #aee4ff, 0 0 20px rgba(0,0,0,0.5); }
+}
+
+/* Coasts */
+.coasts {
+  position: relative;
+  padding: 5rem 1.5rem;
+  color: var(--white);
+  text-align: center;
+  background: url('assets/coasts-bg.jpg') center/cover fixed no-repeat;
+}
+.coasts-overlay { position: absolute; inset: 0; background: rgba(29,58,71,.55); z-index: 0; }
+.coasts-content { position: relative; z-index: 2; }
+.coasts-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 8px rgba(0,0,0,.7);
+  color: var(--white);
+}
+.coast-grid {
+  display: flex; flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem; margin-top: 2rem;
+}
+.coast-column {
+  flex: 1 1 300px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow);
+  font-weight: 500;
+  color: var(--deep-blue);
+}
+.coast-column.md { background: #ffb5a0; }
+.coast-column.fl { background: #c5ffb4; }
+.coast-column ul { list-style: none; padding: 0; margin: 0; }
+.coast-column li { margin: .3rem 0; }
+
+/* Meet Kim */
+.meet-kim.full-bg.large-section {
+  background: var(--sand);
+  width: 100%;
+  padding: 7rem 0;
+  text-align: center;
+}
+.meet-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+.kim-text { flex: 1; }
+.kim-text p { margin-bottom: 1rem; }
+.kim-image.medium {
+  flex: 1;
+  max-width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* Reviews Section */
+.reviews-section.reddish-bg {
+  background: #ffb5a0;
+  color: var(--deep-blue);
+  text-align: center;
+  padding: 5rem 1.5rem;
+}
+.admin-link {
+  margin-bottom: 1rem;
+}
+.admin-link a {
+  background: var(--deep-blue);
+  color: var(--white);
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: var(--transition);
+  font-weight: 600;
+  font-size: .95rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.admin-link a:hover { background: var(--coral); }
+
+.crabpile-container {
+  width: 400px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+.crabpile-img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.reviews-container {
+  position: absolute;
+  inset: 0;
+}
+.review-card {
+  position: absolute;
+  width: 180px;
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 4px 10px var(--shadow);
+  font-size: .9rem;
+  animation: floatCard 6s ease-in-out infinite alternate;
+  text-align: center;
+}
+@keyframes floatCard { from {transform:translateY(0);} to {transform:translateY(-10px);} }
+
+.review-photo {
+  display: inline-block;
+  width: 100px;
+  height: auto;
+  margin: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+.map-link {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--deep-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+.map-link:hover { color: var(--coral); text-decoration: underline; }
+
+/* Suggestions */
+.suggestions-container {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 2rem auto 0;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+#suggestion-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: .8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+#suggestion-status { margin-top: 1rem; font-weight: 600; }
+
+/* Footer */
+.footer {
+  background: linear-gradient(to top, var(--deep-blue), var(--bay-blue));
+  color: var(--white);
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+.footer-logo { height: 60px; margin-bottom: 1rem; }
+.small-text { font-size: .9rem; opacity: .8; }
+.footer-admin a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  background: var(--coral);
+  color: var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+.footer-admin a:hover { background: var(--bay-blue); }
+
+/* Responsive */
+@media(max-width:768px){
+  .hero-content { top: auto; right: auto; margin-top: 3rem; text-align: center; }
+  .hero-content h1 { font-size: 2rem; }
+  .run-logo { height: 70px; }
+  .meet-wrapper { flex-direction: column; text-align: center; }
+  .kim-image.medium { margin-top: 1rem; width: 80%; }
+  .coast-grid { flex-direction: column; }
+  .review-card { width: 140px; font-size: .8rem; }
+  .review-photo { width: 80px; }
+}

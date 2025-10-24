@@ -23,6 +23,5 @@ jobs:
       - name: Build and Deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy --only hosting --project kbcq-e3a4f --token ${{ secrets.FIREBASE_TOKEN }}
-working-directory: ./
-
+        run: firebase deploy --only hosting --project kbcq-e3a4f
+        working-directory: ./
