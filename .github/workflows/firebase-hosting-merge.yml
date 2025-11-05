@@ -3,25 +3,27 @@ name: Deploy to Firebase Hosting on merge
 on:
   push:
     branches:
-      - main
+      - main   # Trigger when you push or merge into main
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Build and Deploy
+      - name: Deploy to Firebase Hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy --only hosting --project kbcq-e3a4f
+        run: |
+          firebase use kbcq-e3a4f --token $FIREBASE_TOKEN
+          firebase deploy --only hosting --project kbcq-e3a4f --token $FIREBASE_TOKEN
         working-directory: ./
