@@ -1,214 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KBCQ Admin Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-storage-compat.js"></script>
-
-  <!-- Firebase Config -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBfsNVnz82BM1KvQuksXywK8nLqgcdC4-o",
-      authDomain: "kbcq-e3a4f.firebaseapp.com",
-      projectId: "kbcq-e3a4f",
-      storageBucket: "kbcq-e3a4f.firebasestorage.app",
-      messagingSenderId: "763431750367",
-      appId: "1:763431750367:web:f0df6a15426298b8fbf76a",
-      measurementId: "G-83GG3HYTXP"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-
-  <style>
-    body{background:#f7e4b0;font-family:'Segoe UI',sans-serif;padding:2rem;color:#1d3a47}
-    h1{text-align:center;color:#e63b2f;margin-bottom:1rem;text-shadow:0 2px 8px rgba(255,255,255,0.7)}
-    .admin-panel{max-width:800px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:2rem}
-    input,textarea,select{width:100%;padding:.8rem;margin-bottom:.8rem;border-radius:6px;border:1px solid #ccc}
-    button{background:#ff7954;color:#fff;border:none;padding:.8rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600}
-    button:hover{background:#2c6e91}
-    .review-item{background:#fff4f2;border-radius:8px;padding:1rem;box-shadow:0 2px 6px rgba(0,0,0,0.15);margin-bottom:1rem;position:relative}
-    .review-item button{position:absolute;top:.5rem;background:none;border:none;font-weight:bold;cursor:pointer}
-    .edit-btn{right:2.5rem;color:#2c6e91}
-    .delete-btn{right:.5rem;color:#e63b2f}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>KBCQ Admin – Reviews</title>
+<style>
+  body{font-family:Segoe UI,Tahoma,sans-serif;background:#faf4f2;margin:0;padding:2rem;color:#222;}
+  h1{color:#b22222;text-align:center;}
+  .box{max-width:600px;margin:1rem auto;background:#fff;padding:1.5rem;border-radius:10px;
+       box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  input,select,textarea{width:100%;margin:.3rem 0;padding:.6rem;border:1px solid #ccc;border-radius:6px;}
+  button{background:#b22222;color:#fff;border:none;padding:.6rem 1.2rem;border-radius:6px;cursor:pointer;}
+  button:hover{background:#d63b3b;}
+  #reviewList img{width:70px;height:70px;object-fit:cover;border-radius:6px;margin-right:4px;}
+  .reviewItem{border-bottom:1px solid #ddd;padding:.5rem 0;}
+</style>
 </head>
 <body>
-  <h1>🦀 KBCQ Admin Dashboard</h1>
 
-  <div class="admin-panel" id="admin-panel">
-    <div id="auth-section" class="login-form">
-      <h3>Sign In</h3>
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button id="login">Sign In</button>
-      <p id="login-status" style="margin-top:1rem;color:#333;"></p>
-    </div>
+<h1>Kim’s Blue Crab Quest – Admin</h1>
 
-    <button id="logout" style="display:none;">Logout</button>
+<div class="box" id="authBox">
+  <h3>Sign In</h3>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button id="loginBtn">Sign In</button>
+  <button id="logoutBtn" style="display:none;">Sign Out</button>
+</div>
 
-    <div class="review-form" id="review-form" style="display:none;">
-      <h3>Add / Update Review</h3>
-      <input type="hidden" id="review-id" />
-      <input type="text" id="review-title" placeholder="Review title" required />
-      <input type="text" id="review-location" placeholder="Restaurant / Location" required />
-      <input type="text" id="review-tag" placeholder="Restaurant tag (e.g., @bluewatergrillfl)" />
-      <textarea id="review-text" placeholder="Review text..." required></textarea>
-      <select id="review-rating" required>
-        <option value="">Select Rating</option>
-        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
-        <option value="4">⭐⭐⭐⭐ (4)</option>
-        <option value="3">⭐⭐⭐ (3)</option>
-        <option value="2">⭐⭐ (2)</option>
-        <option value="1">⭐ (1)</option>
-      </select>
-      <input type="number" id="review-lat" placeholder="Latitude (optional)" step="any" />
-      <input type="number" id="review-lon" placeholder="Longitude (optional)" step="any" />
-      <input type="file" id="review-photos" multiple accept="image/*" />
-      <button id="save-review">Save Review</button>
-      <p id="save-status" style="margin-top:1rem;font-weight:bold;"></p>
-    </div>
+<div class="box" id="formBox" style="display:none;">
+  <h3>Add a Review</h3>
+  <input id="restaurant" placeholder="Restaurant Name">
+  <select id="rating">
+    <option value="">Rating</option>
+    <option value="5">⭐⭐⭐⭐⭐</option>
+    <option value="4">⭐⭐⭐⭐</option>
+    <option value="3">⭐⭐⭐</option>
+    <option value="2">⭐⭐</option>
+    <option value="1">⭐</option>
+  </select>
+  <input id="location" placeholder="Location">
+  <textarea id="comment" rows="3" placeholder="Comment"></textarea>
+  <input id="hashtag" placeholder="#Hashtag">
+  <textarea id="photoURLs" rows="2" placeholder="Paste Google Photos URLs, separated by commas"></textarea>
+  <button id="submitBtn">Submit Review</button>
+</div>
 
-    <div class="review-list" id="review-list" style="display:none;">
-      <h3>Existing Reviews</h3>
-      <div id="reviews-container-admin"></div>
-    </div>
-  </div>
+<div class="box" id="reviewList" style="display:none;">
+  <h3>Existing Reviews</h3>
+  <div id="reviewsContainer"></div>
+</div>
 
-  <script>
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-    const storage = firebase.storage();
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    const loginBtn=document.getElementById('login');
-    const logoutBtn=document.getElementById('logout');
-    const emailField=document.getElementById('email');
-    const passField=document.getElementById('password');
-    const loginStatus=document.getElementById('login-status');
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBfsNVnz82BM1KvQuksXywK8nLqgcdC4-o",
+  authDomain: "kbcq-e3a4f.firebaseapp.com",
+  projectId: "kbcq-e3a4f",
+  storageBucket: "kbcq-e3a4f.firebasestorage.app",
+  messagingSenderId: "763431750367",
+  appId: "1:763431750367:web:f0df6a15426298b8fbf76a",
+  measurementId: "G-83GG3HYTXP"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-    const reviewForm=document.getElementById('review-form');
-    const reviewList=document.getElementById('review-list');
+// ---------- Auth logic ----------
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+loginBtn.onclick = ()=> {
+  const email=document.getElementById('email').value;
+  const pass=document.getElementById('password').value;
+  auth.signInWithEmailAndPassword(email,pass).catch(e=>alert(e.message));
+};
+logoutBtn.onclick = ()=>auth.signOut();
 
-    loginBtn.addEventListener('click',async()=>{
-      const email=emailField.value.trim();
-      const pass=passField.value.trim();
-      if(!email||!pass){loginStatus.textContent="Enter email and password.";loginStatus.style.color="red";return;}
-      try{await auth.signInWithEmailAndPassword(email,pass);}catch(err){
-        if(err.code==='auth/user-not-found'){
-          await auth.createUserWithEmailAndPassword(email,pass);
-          loginStatus.textContent="New admin user created.";loginStatus.style.color="green";
-        }else{loginStatus.textContent=err.message;loginStatus.style.color="red";}
-      }
-    });
+auth.onAuthStateChanged(u=>{
+  if(u){
+    document.getElementById('authBox').style.display='none';
+    document.getElementById('formBox').style.display='block';
+    document.getElementById('reviewList').style.display='block';
+    loadReviews();
+  } else {
+    document.getElementById('authBox').style.display='block';
+    document.getElementById('formBox').style.display='none';
+    document.getElementById('reviewList').style.display='none';
+  }
+});
 
-    logoutBtn.addEventListener('click',()=>auth.signOut());
+// ---------- Add review ----------
+document.getElementById('submitBtn').onclick = async ()=>{
+  const rest=document.getElementById('restaurant').value.trim();
+  const rating=parseInt(document.getElementById('rating').value);
+  const loc=document.getElementById('location').value.trim();
+  const com=document.getElementById('comment').value.trim();
+  const hash=document.getElementById('hashtag').value.trim();
+  const photoURLs=document.getElementById('photoURLs').value
+                      .split(',')
+                      .map(u=>u.trim())
+                      .filter(u=>u.length>0);
 
-    auth.onAuthStateChanged(user=>{
-      if(user){
-        document.getElementById('auth-section').style.display='none';
-        logoutBtn.style.display='inline-block';
-        reviewForm.style.display='block';
-        reviewList.style.display='block';
-        loadReviews();
-      }else{
-        document.getElementById('auth-section').style.display='block';
-        logoutBtn.style.display='none';
-        reviewForm.style.display='none';
-        reviewList.style.display='none';
-      }
-    });
+  if(!rest||!rating||!com){alert("Restaurant, rating, and comment are required.");return;}
 
-    document.getElementById('save-review').addEventListener('click',async(e)=>{
-      e.preventDefault();
-      const title=document.getElementById('review-title').value.trim();
-      const location=document.getElementById('review-location').value.trim();
-      const restaurantTag=document.getElementById('review-tag').value.trim();
-      const text=document.getElementById('review-text').value.trim();
-      const rating=parseInt(document.getElementById('review-rating').value);
-      const lat=parseFloat(document.getElementById('review-lat').value);
-      const lon=parseFloat(document.getElementById('review-lon').value);
-      const files=document.getElementById('review-photos').files;
-      const statusEl=document.getElementById('save-status');
+  await db.collection('reviews').add({
+    restaurant:rest,
+    rating,
+    location:loc,
+    comment:com,
+    hashtag:hash,
+    photoURLs,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  });
+  alert("Review added!");
+  document.getElementById('restaurant').value='';
+  document.getElementById('rating').value='';
+  document.getElementById('location').value='';
+  document.getElementById('comment').value='';
+  document.getElementById('hashtag').value='';
+  document.getElementById('photoURLs').value='';
+  loadReviews();
+};
 
-      if(!title||!location||!text||!rating){
-        statusEl.textContent="Please fill out all required fields.";
-        statusEl.style.color="red";return;
-      }
-      statusEl.textContent="Saving review...";statusEl.style.color="orange";
-      try{
-        let photoURLs=[];
-        if(files.length>0){
-          for(const file of files){
-            const ref=storage.ref().child(`reviews/${Date.now()}_${file.name}`);
-            await ref.put(file);
-            const url=await ref.getDownloadURL();
-            photoURLs.push(url);
-          }
-        }
-        const data={title,location,restaurantTag,text,rating,photoURLs,
-          lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon,
-          timestamp:firebase.firestore.FieldValue.serverTimestamp()};
-        await db.collection('reviews').add(data);
-        statusEl.textContent="✅ Review saved successfully!";statusEl.style.color="green";
-        document.getElementById('review-form').reset();
-      }catch(err){
-        console.error("Error saving review:",err);
-        statusEl.textContent="❌ Error: "+err.message;statusEl.style.color="red";
-      }
-    });
-
-    function loadReviews(){
-      db.collection('reviews').orderBy('rating','desc').onSnapshot(snapshot=>{
-        const container=document.getElementById('reviews-container-admin');
-        container.innerHTML='';
-        snapshot.forEach(doc=>{
-          const d=doc.data();
-          const div=document.createElement('div');
-          div.className='review-item';
-          div.innerHTML=`<strong>${d.title||'Untitled'}</strong><br/>
-                         <em>${d.location||''}</em><br/>
-                         ${'⭐'.repeat(d.rating)}<br/>
-                         ${d.text}<br/>
-                         ${d.restaurantTag?`<small>${d.restaurantTag}</small><br/>`:''}
-                         ${(d.lat&&d.lon)?`<a href="https://www.google.com/maps?q=${d.lat},${d.lon}" target="_blank">📍 View on Map</a><br/>`:''}
-                         ${(d.photoURLs&&d.photoURLs.length)?d.photoURLs.map(u=>`<img src="${u}" style="width:90px;margin:4px;border-radius:6px;">`).join(''):''}
-                         <button class="edit-btn" data-id="${doc.id}">✏️</button>
-                         <button class="delete-btn" data-id="${doc.id}">🗑️</button>`;
-          container.appendChild(div);
-        });
-
-        document.querySelectorAll('.edit-btn').forEach(btn=>{
-          btn.addEventListener('click',async e=>{
-            const id=e.target.getAttribute('data-id');
-            const snap=await db.collection('reviews').doc(id).get();
-            if(snap.exists){
-              const d=snap.data();
-              document.getElementById('review-id').value=id;
-              document.getElementById('review-title').value=d.title||'';
-              document.getElementById('review-location').value=d.location||'';
-              document.getElementById('review-tag').value=d.restaurantTag||'';
-              document.getElementById('review-text').value=d.text||'';
-              document.getElementById('review-rating').value=d.rating||'';
-              document.getElementById('review-lat').value=d.lat||'';
-              document.getElementById('review-lon').value=d.lon||'';
-              window.scrollTo({top:0,behavior:'smooth'});
-            }
-          });
-        });
-        document.querySelectorAll('.delete-btn').forEach(btn=>{
-          btn.addEventListener('click',async e=>{
-            const id=e.target.getAttribute('data-id');
-            if(confirm('Delete this review?')) await db.collection('reviews').doc(id).delete();
-          });
-        });
-      });
-    }
-  </script>
+// ---------- Load reviews ----------
+async function loadReviews(){
+  const container=document.getElementById('reviewsContainer');
+  container.innerHTML='';
+  const snap=await db.collection('reviews').orderBy('createdAt','desc').limit(20).get();
+  snap.forEach(doc=>{
+    const r=doc.data();
+    const div=document.createElement('div');
+    div.className='reviewItem';
+    div.innerHTML=`
+      <strong>${r.restaurant}</strong> – ${'⭐'.repeat(r.rating)}<br>
+      <em>${r.location||''}</em><br>
+      ${r.comment}<br>
+      ${r.hashtag?('#'+r.hashtag):''}<br>
+      ${(r.photoURLs||[]).map(u=>`<img src="${u}" alt="photo">`).join('')}
+    `;
+    container.appendChild(div);
+  });
+}
+</script>
 </body>
 </html>
